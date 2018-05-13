@@ -1,0 +1,4 @@
+﻿  Prims.cpp
+e:\datastructure\prims\prims\prims.cpp(132): warning C4018: '<': signed/unsigned mismatch
+  Prims.vcxproj -> E:\DataStructure\Prims\Debug\Prims.exe
+  Prims.vcxproj -> E:\DataStructure\Prims\Debug\Prims.pdb (Full PDB)
