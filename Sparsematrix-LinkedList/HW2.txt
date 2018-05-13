@@ -1,0 +1,102 @@
+
+//Implement the following three member functions for the class my_matrix:
+//add_node, operator+, operator*
+//Do not change the main function and the my_matrix::print function
+
+#include <iostream>
+#include <vector>
+using namespace std;
+
+class node {
+public:
+	int value;
+	int r_position;
+	int c_position;
+	node * r_next;
+	node * c_next;
+	node() { value = -9999; r_position = c_position = -1; r_next = c_next = nullptr; }
+	node(int v, int r, int c) { value = v; r_position = r; c_position = c; r_next = c_next = nullptr; }
+
+};
+class my_matrix {
+public:
+	int num_rows;
+	int num_cols;
+	vector<node *> r_vec;
+	vector<node *> c_vec;
+
+
+	my_matrix(){}
+	my_matrix(int r, int c);
+	//Initialize a matrix of rows and c cols.
+
+	my_matrix(int r, int c, int n, int k);
+	//Initializa a matrix of r rows, c cols, n nodes, with values randomly in - (k-1) ... (k-1);
+	void print(); //print value, r_position, and c_position of all matrix elements in row-oriented manner
+
+
+	//Implement the following three member functions:
+
+	void add_node(int v, int r, int c);
+	//Create a new node with value v at row r and col c.
+	//If there already exists an element at this position, then just update the node
+	//value at this position to v, and do not create a new node.
+
+	my_matrix operator+(my_matrix M);//matrix addition
+
+	my_matrix operator*(my_matrix M); //matrix multiplication
+
+
+};
+
+my_matrix::my_matrix(int r, int c) {
+	num_rows = r;
+	num_cols = c;
+	r_vec.resize(r, nullptr);
+	c_vec.resize(c, nullptr);
+}
+
+
+my_matrix::my_matrix(int r, int c, int n, int k) {
+	num_rows = r;
+	num_cols = c;
+	r_vec.resize(r, nullptr);
+	c_vec.resize(c, nullptr);
+	for (int i = 0; i < n; i++) {
+		int vv = rand() % (2 * k - 1) - (k - 1);
+		int rr = rand() % r;
+		int cc = rand() % c;
+		add_node(vv, rr, cc);
+	}
+}
+
+
+
+void my_matrix::print() {
+	cout << endl;
+	for (int i = 0; i < num_rows; i++) {
+		node * p = r_vec[i];
+		cout << endl;
+		while (p != nullptr) {
+			cout << p->value << " " << p->r_position << " " << p->c_position << "  ";
+			p = p->r_next;
+		}
+	}
+}
+
+
+
+int main() {
+	my_matrix M1(7, 5, 11, 8), M2(7, 5, 10, 8), M3(7, 5), M4(5, 6, 13, 9), M5(7, 6);
+	M1.print();
+	M2.print();
+	M3 = M1 + M2;
+	M3.print();
+	M1.print();
+	M4.print();
+	M5 = M1 * M4;
+	M5.print();
+	getchar();
+	getchar();
+	return 0;
+}
